@@ -18,6 +18,8 @@ namespace craftersmine.Aesir
             treeIcons.Images.Add("DirectoryOpen", FileIcons.Directory);
             treeIcons.Images.Add("Archive", FileIcons.Archive);
 
+            ShowArchiveData();
+
             UpdateView();
 
             UpdateTitle();
@@ -41,21 +43,29 @@ namespace craftersmine.Aesir
                 switch (openFileDialog.ShowDialog())
                 {
                     case DialogResult.OK:
-                        archiveTree.Nodes.Clear();
-                        archiveFileList.Items.Clear();
                         StaticData.OpenedArchive = Archive.OpenArchive(openFileDialog.FileName);
-                        TreeNode root = new TreeNode(Path.GetFileName(StaticData.OpenedArchive.AsarArchive.FilePath));
-                        root.ImageKey = ArchiveRootImageIndex;
-                        root.SelectedImageKey = ArchiveRootImageIndex;
-                        PopulateTreeNodes(root, StaticData.OpenedArchive.AsarArchive.Files);
-                        archiveTree.Nodes.Add(root);
-                        OpenDir("");
-                        archiveTree.SelectedNode = root;
-                        UpdateTitle();
-                        SetStatus("Opened archive: " + StaticData.OpenedArchive.FilePath);
+                        ShowArchiveData();
                         break;
                 }
             }
+        }
+
+        private void ShowArchiveData()
+        {
+            if (StaticData.OpenedArchive is null)
+                return;
+
+            archiveTree.Nodes.Clear();
+            archiveFileList.Items.Clear();
+            TreeNode root = new TreeNode(Path.GetFileName(StaticData.OpenedArchive.AsarArchive.FilePath));
+            root.ImageKey = ArchiveRootImageIndex;
+            root.SelectedImageKey = ArchiveRootImageIndex;
+            PopulateTreeNodes(root, StaticData.OpenedArchive.AsarArchive.Files);
+            archiveTree.Nodes.Add(root);
+            OpenDir("");
+            archiveTree.SelectedNode = root;
+            UpdateTitle();
+            SetStatus("Opened archive: " + StaticData.OpenedArchive.FilePath);
         }
 
         private void PopulateTreeNodes(TreeNode root, AsarArchiveFile asarArchiveFile)
