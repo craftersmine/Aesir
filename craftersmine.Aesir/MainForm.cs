@@ -248,7 +248,8 @@ namespace craftersmine.Aesir
                 }
                 return string.Format(strFormat, size, "KB");
             }
-            return string.Format(strFormat, size, "Bytes");
+
+            return size + " Bytes";
         }
 
         private void archiveFileList_DoubleClick(object sender, EventArgs e)
