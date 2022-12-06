@@ -118,22 +118,26 @@ namespace craftersmine.Aesir
                     ListViewItem fileItem = new ListViewItem(f.Name);
                     fileItem.Tag = f;
                     fileItem.Name = f.Name;
-
+                    string isUnpacked = f.IsUnpacked ? "Yes" : "No";
                     if (f.CheckIfDirectory())
                     {
                         fileItem.ImageKey = "Directory";
                         fileItem.SubItems.Add("<DIR>");
-                        fileItem.SubItems.Add(f.IsUnpacked ? "Yes" : "No");
+                        fileItem.SubItems.Add(isUnpacked);
                         fileItem.SubItems.Add(""); // if it is directory, don't show size, maybe directory sizes will be implemented later as a feature
+                        fileItem.ToolTipText = string.Format("Name: {0}\r\nFile type: {1}\r\nUnpacked: {2}", f.Name, "Directory", isUnpacked);
                     }
                     else
                     {
+                        string size = CalculateSizeString(f.Size);
                         string ext = Path.GetExtension(f.Name);
+                        string fileType = OSHelpers.GetFileTypeDescription(ext);
                         AddIconToImageList(ext, OSHelpers.GetIconForFileExtension(ext, true), OSHelpers.GetIconForFileExtension(ext, false));
                         fileItem.ImageKey = ext;
-                        fileItem.SubItems.Add(OSHelpers.GetFileTypeDescription(ext));
-                        fileItem.SubItems.Add(f.IsUnpacked ? "Yes" : "No");
-                        fileItem.SubItems.Add(CalculateSizeString(f.Size));
+                        fileItem.SubItems.Add(fileType);
+                        fileItem.SubItems.Add(isUnpacked);
+                        fileItem.SubItems.Add(size);
+                        fileItem.ToolTipText = string.Format("Name: {0}\r\nFile type: {2}\r\nSize: {1}\r\nUnpacked: {3}", f.Name, size, fileType, isUnpacked);
                     }
 
                     if (f.Integrity is not null)
@@ -150,6 +154,7 @@ namespace craftersmine.Aesir
                 ListViewItem upItem = new ListViewItem("..");
                 upItem.Name = "upItem";
                 upItem.ImageKey = "Directory";
+                upItem.ToolTipText = "Go to parent directory";
                 archiveFileList.Items.Insert(0, upItem);
             }
 
