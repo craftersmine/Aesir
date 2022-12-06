@@ -50,6 +50,7 @@ namespace craftersmine.Aesir
                         PopulateTreeNodes(root, StaticData.OpenedArchive.AsarArchive.Files);
                         archiveTree.Nodes.Add(root);
                         UpdateTitle();
+                        SetStatus("Opened archive: " + StaticData.OpenedArchive.FilePath);
                         break;
                 }
             }
