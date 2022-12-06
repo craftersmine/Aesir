@@ -17,6 +17,9 @@ namespace craftersmine.Aesir
             treeIcons.Images.Add("Directory", FileIcons.Directory);
             treeIcons.Images.Add("DirectoryOpen", FileIcons.Directory);
             treeIcons.Images.Add("Archive", FileIcons.Archive);
+
+            UpdateView();
+
             UpdateTitle();
         }
 
@@ -167,34 +170,63 @@ namespace craftersmine.Aesir
             smallViewIcons.Images.Add(ext, smallIcon);
         }
 
-        private void UpdateView(object sender, EventArgs e)
+        private void UpdateViewClick(object sender, EventArgs e)
         {
             if (sender is ToolStripMenuItem viewMenuItem)
             {
-                viewDetailsMenu.CheckState = CheckState.Unchecked;
-                viewListMenu.CheckState = CheckState.Unchecked;
-                viewLargeIconsMenu.CheckState = CheckState.Unchecked;
-                viewSmallIconsMenu.CheckState = CheckState.Unchecked;
-
                 switch (viewMenuItem.Tag)
                 {
                     case "viewLargeIcons":
-                        viewLargeIconsMenu.CheckState = CheckState.Indeterminate;
                         archiveFileList.View = View.LargeIcon;
                         break;
                     case "viewSmallIcons":
-                        viewSmallIconsMenu.CheckState = CheckState.Indeterminate;
                         archiveFileList.View = View.SmallIcon;
                         break;
                     case "viewDetails":
-                        viewDetailsMenu.CheckState = CheckState.Indeterminate;
                         archiveFileList.View = View.Details;
                         break;
                     case "viewList":
-                        viewListMenu.CheckState = CheckState.Indeterminate;
                         archiveFileList.View = View.List;
                         break;
                 }
+            }
+
+            UpdateView();
+        }
+
+        private void UpdateView()
+        {
+            viewDetailsMenu.CheckState = CheckState.Unchecked;
+            viewDetailsMenu.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            viewListMenu.CheckState = CheckState.Unchecked;
+            viewListMenu.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            viewLargeIconsMenu.CheckState = CheckState.Unchecked;
+            viewLargeIconsMenu.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            viewSmallIconsMenu.CheckState = CheckState.Unchecked;
+            viewSmallIconsMenu.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+
+            switch (archiveFileList.View)
+            {
+                case View.LargeIcon:
+                    viewLargeIconsMenu.CheckState = CheckState.Indeterminate;
+                    viewLargeIconsMenu.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                    archiveFileList.View = View.LargeIcon;
+                    break;
+                case View.SmallIcon:
+                    viewSmallIconsMenu.CheckState = CheckState.Indeterminate;
+                    viewSmallIconsMenu.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                    archiveFileList.View = View.SmallIcon;
+                    break;
+                case View.Details:
+                    viewDetailsMenu.CheckState = CheckState.Indeterminate;
+                    viewDetailsMenu.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                    archiveFileList.View = View.Details;
+                    break;
+                case View.List:
+                    viewListMenu.CheckState = CheckState.Indeterminate;
+                    viewListMenu.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                    archiveFileList.View = View.List;
+                    break;
             }
         }
 
