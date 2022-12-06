@@ -23,6 +23,8 @@ namespace craftersmine.Aesir
             UpdateView();
 
             UpdateTitle();
+
+            SetStatus("Ready");
         }
 
         private void UpdateTitle()
