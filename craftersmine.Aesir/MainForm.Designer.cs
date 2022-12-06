@@ -97,7 +97,6 @@
             this.integrityColumn = new System.Windows.Forms.ColumnHeader();
             this.largeViewIcons = new System.Windows.Forms.ImageList(this.components);
             this.smallViewIcons = new System.Windows.Forms.ImageList(this.components);
-            this.detailsViewIcons = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -316,25 +315,35 @@
             // 
             this.viewLargeIconsMenu.Name = "viewLargeIconsMenu";
             this.viewLargeIconsMenu.Size = new System.Drawing.Size(134, 22);
+            this.viewLargeIconsMenu.Tag = "viewLargeIcons";
             this.viewLargeIconsMenu.Text = "Large Icons";
+            this.viewLargeIconsMenu.Click += new System.EventHandler(this.UpdateView);
             // 
             // viewSmallIconsMenu
             // 
             this.viewSmallIconsMenu.Name = "viewSmallIconsMenu";
             this.viewSmallIconsMenu.Size = new System.Drawing.Size(134, 22);
+            this.viewSmallIconsMenu.Tag = "viewSmallIcons";
             this.viewSmallIconsMenu.Text = "Small Icons";
+            this.viewSmallIconsMenu.Click += new System.EventHandler(this.UpdateView);
             // 
             // viewListMenu
             // 
             this.viewListMenu.Name = "viewListMenu";
             this.viewListMenu.Size = new System.Drawing.Size(134, 22);
+            this.viewListMenu.Tag = "viewList";
             this.viewListMenu.Text = "List";
+            this.viewListMenu.Click += new System.EventHandler(this.UpdateView);
             // 
             // viewDetailsMenu
             // 
+            this.viewDetailsMenu.Checked = true;
+            this.viewDetailsMenu.CheckState = System.Windows.Forms.CheckState.Indeterminate;
             this.viewDetailsMenu.Name = "viewDetailsMenu";
             this.viewDetailsMenu.Size = new System.Drawing.Size(134, 22);
+            this.viewDetailsMenu.Tag = "viewDetails";
             this.viewDetailsMenu.Text = "Details";
+            this.viewDetailsMenu.Click += new System.EventHandler(this.UpdateView);
             // 
             // toolStripMenuItem5
             // 
@@ -588,15 +597,17 @@
             this.archiveFileList.TabIndex = 0;
             this.archiveFileList.UseCompatibleStateImageBehavior = false;
             this.archiveFileList.View = System.Windows.Forms.View.Details;
+            this.archiveFileList.DoubleClick += new System.EventHandler(this.archiveFileList_DoubleClick);
             // 
             // nameColumn
             // 
             this.nameColumn.Text = "Name";
-            this.nameColumn.Width = 300;
+            this.nameColumn.Width = 220;
             // 
             // typeColumn
             // 
             this.typeColumn.Text = "Type";
+            this.typeColumn.Width = 150;
             // 
             // unpackedColumn
             // 
@@ -615,21 +626,15 @@
             // 
             // largeViewIcons
             // 
-            this.largeViewIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.largeViewIcons.ImageSize = new System.Drawing.Size(16, 16);
+            this.largeViewIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.largeViewIcons.ImageSize = new System.Drawing.Size(32, 32);
             this.largeViewIcons.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // smallViewIcons
             // 
-            this.smallViewIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.smallViewIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.smallViewIcons.ImageSize = new System.Drawing.Size(16, 16);
             this.smallViewIcons.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // detailsViewIcons
-            // 
-            this.detailsViewIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.detailsViewIcons.ImageSize = new System.Drawing.Size(16, 16);
-            this.detailsViewIcons.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // MainForm
             // 
@@ -727,6 +732,5 @@
         private ColumnHeader integrityColumn;
         private ImageList largeViewIcons;
         private ImageList smallViewIcons;
-        private ImageList detailsViewIcons;
     }
 }
