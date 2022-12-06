@@ -105,8 +105,12 @@ namespace craftersmine.Aesir
             ClearImageLists();
 
             archiveFileList.Items.Clear();
-            AsarArchiveFile file;
-            file = string.IsNullOrWhiteSpace(path) ? StaticData.OpenedArchive.AsarArchive.Files : StaticData.OpenedArchive.AsarArchive.FindFile(path);
+
+            if (StaticData.OpenedArchive is null)
+                MessageBox.Show("ASAR archive is not opened!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            AsarArchiveFile? file;
+            file = string.IsNullOrWhiteSpace(path) ? StaticData.OpenedArchive?.AsarArchive.Files : StaticData.OpenedArchive?.AsarArchive.FindFile(path);
 
             List<ListViewItem> fileItems = new List<ListViewItem>();
 
