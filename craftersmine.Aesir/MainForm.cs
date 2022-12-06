@@ -17,6 +17,14 @@ namespace craftersmine.Aesir
             treeIcons.Images.Add("Directory", FileIcons.Directory);
             treeIcons.Images.Add("DirectoryOpen", FileIcons.Directory);
             treeIcons.Images.Add("Archive", FileIcons.Archive);
+            UpdateTitle();
+        }
+
+        private void UpdateTitle()
+        {
+            if (StaticData.OpenedArchive is not null)
+                Text = Path.GetFileName(StaticData.OpenedArchive.FilePath) + " - Aesir";
+            else Text = "No archive opened - Aesir";
         }
 
         public void OpenArchiveClick(object sender, EventArgs e)
@@ -37,6 +45,7 @@ namespace craftersmine.Aesir
                         root.ImageKey = ArchiveRootImageIndex;
                         PopulateTreeNodes(root, StaticData.OpenedArchive.AsarArchive.Files);
                         archiveTree.Nodes.Add(root);
+                        UpdateTitle();
                         break;
                 }
             }
