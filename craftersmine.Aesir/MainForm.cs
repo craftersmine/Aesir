@@ -49,6 +49,8 @@ namespace craftersmine.Aesir
                         root.SelectedImageKey = ArchiveRootImageIndex;
                         PopulateTreeNodes(root, StaticData.OpenedArchive.AsarArchive.Files);
                         archiveTree.Nodes.Add(root);
+                        OpenDir("");
+                        archiveTree.SelectedNode = root;
                         UpdateTitle();
                         SetStatus("Opened archive: " + StaticData.OpenedArchive.FilePath);
                         break;
