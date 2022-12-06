@@ -8,6 +8,6 @@ namespace craftersmine.Aesir
 {
     public static class StaticData
     {
-        public static Archive OpenedArchive { get; set; }
+        public static Archive? OpenedArchive { get; set; }
     }
 }
