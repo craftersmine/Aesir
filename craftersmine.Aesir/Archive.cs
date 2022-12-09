@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,11 +34,9 @@ namespace craftersmine.Aesir
             return new Archive(filePath);
         }
 
-        public static Archive CreateArchive(string filePath)
+        public static Archive CreateArchive(string outputDir, string archiveName)
         {
-            // TODO: implement archive creation
-            throw new NotImplementedException("Archive creation is not implemented yet");
-            return new Archive("", "");
+            return new Archive(outputDir, archiveName);
         }
 
         public void SaveArchive()
