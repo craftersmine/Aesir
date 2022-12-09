@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +9,17 @@ namespace craftersmine.Aesir
 {
     public class Archive
     {
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
         public bool IsOpened { get; private set; }
         public bool IsModified { get; private set; }
         public string FilePath { get; private set; }
         public AsarArchive AsarArchive { get; private set; }
+        public AsarArchivePackerData AsarArchivePackerData { get; private set; }
+
+        public event EventHandler<ExtractionStatusChangedEventArgs> OnExtractionStarted;
+        public event EventHandler<AsarUnpackingStatusChangedEventArgs> OnExtractionProgressChanged;
+        public event EventHandler<ExtractionStatusChangedEventArgs> OnExtractionCompleted;
 
         private Archive(string filePath)
         {
@@ -21,9 +28,9 @@ namespace craftersmine.Aesir
             FilePath = filePath;
         }
 
-        private Archive(string outputFilePath, string archiveName)
+        private Archive(string outputDir, string archiveName)
         {
-            
+            AsarArchivePackerData = new AsarArchivePackerData(outputDir, archiveName);
         }
 
         public static Archive OpenArchive(string filePath)
@@ -45,5 +52,29 @@ namespace craftersmine.Aesir
             throw new NotImplementedException("Archive saving is not implemented yet");
         }
 
+        public async void ExtractArchive(string outputDir)
+        {
+            AsarArchiveUnpacker unpacker = new AsarArchiveUnpacker(AsarArchive);
+            unpacker.StatusChanged += Unpacker_StatusChanged;
+            unpacker.AsarArchiveUnpacked += Unpacker_AsarArchiveUnpacked;
+            OnExtractionStarted?.Invoke(this, new ExtractionStatusChangedEventArgs(true, outputDir));
+            _cancellationTokenSource = new CancellationTokenSource();
+            await unpacker.UnpackAsync(outputDir, _cancellationTokenSource.Token);
+        }
+
+        public void CancelCurrentOperation()
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
+        private void Unpacker_AsarArchiveUnpacked(object? sender, AsarUnpackingCompletedEventArgs e)
+        {
+            OnExtractionCompleted?.Invoke(this, new ExtractionStatusChangedEventArgs(false, e.OutputDirectoryPath));
+        }
+
+        private void Unpacker_StatusChanged(object? sender, AsarUnpackingStatusChangedEventArgs e)
+        {
+            OnExtractionProgressChanged?.Invoke(this, e);
+        }
     }
 }
