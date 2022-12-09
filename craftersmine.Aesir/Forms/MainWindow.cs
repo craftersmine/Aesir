@@ -1,16 +1,17 @@
 using craftersmine.Aesir.Extensions;
+using craftersmine.Aesir.Forms;
 using craftersmine.Aesir.Res;
 using craftersmine.Asar.Net;
 
 namespace craftersmine.Aesir
 {
-    public partial class MainForm : Form
+    public partial class MainWindow : Form
     {
-        public const string ArchiveRootImageIndex = "Archive";
-        public const string ArchiveDirectoryClosedImageIndex = "Directory";
-        public const string ArchiveDirectoryOpenedImageIndex = "Directory";
+        private const string ArchiveRootImageIndex = "Archive";
+        private const string ArchiveDirectoryClosedImageIndex = "Directory";
+        private const string ArchiveDirectoryOpenedImageIndex = "Directory";
 
-        public MainForm()
+        public MainWindow()
         {
             InitializeComponent();
             treeIcons.Images.Clear();
@@ -25,6 +26,75 @@ namespace craftersmine.Aesir
             UpdateTitle();
 
             SetStatus("Ready");
+
+            DisableOrEnableUi();
+        }
+
+        private void ExtractArchiveClick(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+            {
+                dlg.Description = "Select an output directory for archive to be extracted in";
+                dlg.ShowNewFolderButton = true;
+                dlg.UseDescriptionForTitle = true;
+                switch (dlg.ShowDialog())
+                {
+                    case DialogResult.OK:
+                        if (StaticData.OpenedArchive is null)
+                        {
+                            MessageBox.Show(
+                                "Unable to extract archive into selected directory! Archive is not opened!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        StaticData.OpenedArchive.ExtractArchive(dlg.SelectedPath);
+                        break;
+                }
+            }
+        }
+
+        private void CreateNewArchiveClick(object sender, EventArgs e)
+        {
+            using (CreateArchiveDialog createArchiveForm = new CreateArchiveDialog())
+            {
+                switch (createArchiveForm.ShowDialog())
+                {
+                    case DialogResult.OK:
+                        ShowArchiveData();
+                        DisableOrEnableUi();
+                        break;
+                }
+            }
+        }
+
+        private void DisableOrEnableUi()
+        {
+            bool isEnabled = StaticData.OpenedArchive is not null;
+
+            saveArchiveTool.Enabled = isEnabled;
+            extractArchiveTool.Enabled = isEnabled;
+            copyToTool.Enabled = isEnabled;
+            moveToTool.Enabled = isEnabled;
+            renameTool.Enabled = isEnabled;
+            deleteTool.Enabled = isEnabled;
+            propertiesTool.Enabled = isEnabled;
+            validateTool.Enabled = isEnabled;
+            openFileMenu.Enabled = isEnabled;
+            editFileMenu.Enabled = isEnabled;
+            viewFileMenu.Enabled = isEnabled;
+            saveArchiveMenu.Enabled = isEnabled;
+            extractArchiveToMenu.Enabled = isEnabled;
+            copyFileToMenu.Enabled = isEnabled;
+            moveFileToMenu.Enabled = isEnabled;
+            renameFileMenu.Enabled = isEnabled;
+            deleteFileMenu.Enabled = isEnabled;
+            filePropertiesMenu.Enabled = isEnabled;
+            validateMenu.Enabled = isEnabled;
+
+            if (StaticData.OpenedArchive is not null && StaticData.OpenedArchive.IsModified)
+            {
+                saveArchiveMenu.Enabled = StaticData.OpenedArchive.IsModified;
+            }
         }
 
         private void UpdateTitle()
@@ -34,7 +104,7 @@ namespace craftersmine.Aesir
             else Text = "No archive opened - Aesir";
         }
 
-        public void OpenArchiveClick(object sender, EventArgs e)
+        private void OpenArchiveClick(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -50,12 +120,15 @@ namespace craftersmine.Aesir
                         break;
                 }
             }
+            DisableOrEnableUi();
         }
 
         private void ShowArchiveData()
         {
             if (StaticData.OpenedArchive is null)
                 return;
+
+            SubscribeToEvents();
 
             archiveTree.Nodes.Clear();
             archiveFileList.Items.Clear();
@@ -68,6 +141,28 @@ namespace craftersmine.Aesir
             archiveTree.SelectedNode = root;
             UpdateTitle();
             SetStatus("Opened archive: " + StaticData.OpenedArchive.FilePath);
+        }
+
+        private void SubscribeToEvents()
+        {
+            if (StaticData.OpenedArchive is null)
+                return;
+
+            StaticData.OpenedArchive.OnExtractionStarted += OnExtractionStartedEvent;
+            StaticData.OpenedArchive.OnExtractionCompleted += OpenedArchive_OnExtractionCompleted;
+        }
+
+        private void OpenedArchive_OnExtractionCompleted(object? sender, ExtractionStatusChangedEventArgs e)
+        {
+            this.Enabled = true;
+        }
+
+        private void OnExtractionStartedEvent(object? sender, ExtractionStatusChangedEventArgs e)
+        {
+            ExtractionProgressDialog dlg = new ExtractionProgressDialog();
+            this.Enabled = false;
+            dlg.Show();
+            dlg.Focus();
         }
 
         private void PopulateTreeNodes(TreeNode root, AsarArchiveFile asarArchiveFile)

@@ -1,6 +1,6 @@
 ﻿namespace craftersmine.Aesir
 {
-    partial class MainForm
+    partial class MainWindow
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -165,40 +165,41 @@
             // openFileMenu
             // 
             this.openFileMenu.Name = "openFileMenu";
-            this.openFileMenu.Size = new System.Drawing.Size(176, 22);
+            this.openFileMenu.Size = new System.Drawing.Size(180, 22);
             this.openFileMenu.Text = "Open";
             // 
             // editFileMenu
             // 
             this.editFileMenu.Image = global::craftersmine.Aesir.Res.Toolbar.edit;
             this.editFileMenu.Name = "editFileMenu";
-            this.editFileMenu.Size = new System.Drawing.Size(176, 22);
+            this.editFileMenu.Size = new System.Drawing.Size(180, 22);
             this.editFileMenu.Text = "Edit";
             // 
             // viewFileMenu
             // 
             this.viewFileMenu.Image = global::craftersmine.Aesir.Res.Toolbar.view;
             this.viewFileMenu.Name = "viewFileMenu";
-            this.viewFileMenu.Size = new System.Drawing.Size(176, 22);
+            this.viewFileMenu.Size = new System.Drawing.Size(180, 22);
             this.viewFileMenu.Text = "View";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(173, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // newArchiveMenu
             // 
             this.newArchiveMenu.Image = global::craftersmine.Aesir.Res.Toolbar.archive;
             this.newArchiveMenu.Name = "newArchiveMenu";
-            this.newArchiveMenu.Size = new System.Drawing.Size(176, 22);
+            this.newArchiveMenu.Size = new System.Drawing.Size(180, 22);
             this.newArchiveMenu.Text = "New Archive...";
+            this.newArchiveMenu.Click += new System.EventHandler(this.CreateNewArchiveClick);
             // 
             // openArchiveMenu
             // 
             this.openArchiveMenu.Image = global::craftersmine.Aesir.Res.Toolbar.open;
             this.openArchiveMenu.Name = "openArchiveMenu";
-            this.openArchiveMenu.Size = new System.Drawing.Size(176, 22);
+            this.openArchiveMenu.Size = new System.Drawing.Size(180, 22);
             this.openArchiveMenu.Text = "Open Archive...";
             this.openArchiveMenu.Click += new System.EventHandler(this.OpenArchiveClick);
             // 
@@ -206,78 +207,79 @@
             // 
             this.saveArchiveMenu.Image = global::craftersmine.Aesir.Res.Toolbar.save;
             this.saveArchiveMenu.Name = "saveArchiveMenu";
-            this.saveArchiveMenu.Size = new System.Drawing.Size(176, 22);
+            this.saveArchiveMenu.Size = new System.Drawing.Size(180, 22);
             this.saveArchiveMenu.Text = "Save Archive...";
             // 
             // extractArchiveToMenu
             // 
             this.extractArchiveToMenu.Image = global::craftersmine.Aesir.Res.Toolbar.extract_archive;
             this.extractArchiveToMenu.Name = "extractArchiveToMenu";
-            this.extractArchiveToMenu.Size = new System.Drawing.Size(176, 22);
+            this.extractArchiveToMenu.Size = new System.Drawing.Size(180, 22);
             this.extractArchiveToMenu.Text = "Extract Archive to...";
+            this.extractArchiveToMenu.Click += new System.EventHandler(this.ExtractArchiveClick);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(173, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // copyFileToMenu
             // 
             this.copyFileToMenu.Image = global::craftersmine.Aesir.Res.Toolbar.copy_file_to;
             this.copyFileToMenu.Name = "copyFileToMenu";
-            this.copyFileToMenu.Size = new System.Drawing.Size(176, 22);
+            this.copyFileToMenu.Size = new System.Drawing.Size(180, 22);
             this.copyFileToMenu.Text = "Copy To...";
             // 
             // moveFileToMenu
             // 
             this.moveFileToMenu.Image = global::craftersmine.Aesir.Res.Toolbar.move_file_to;
             this.moveFileToMenu.Name = "moveFileToMenu";
-            this.moveFileToMenu.Size = new System.Drawing.Size(176, 22);
+            this.moveFileToMenu.Size = new System.Drawing.Size(180, 22);
             this.moveFileToMenu.Text = "Move To...";
             // 
             // renameFileMenu
             // 
             this.renameFileMenu.Image = global::craftersmine.Aesir.Res.Toolbar.rename_file;
             this.renameFileMenu.Name = "renameFileMenu";
-            this.renameFileMenu.Size = new System.Drawing.Size(176, 22);
+            this.renameFileMenu.Size = new System.Drawing.Size(180, 22);
             this.renameFileMenu.Text = "Rename";
             // 
             // deleteFileMenu
             // 
             this.deleteFileMenu.Image = global::craftersmine.Aesir.Res.Toolbar.remove_file;
             this.deleteFileMenu.Name = "deleteFileMenu";
-            this.deleteFileMenu.Size = new System.Drawing.Size(176, 22);
+            this.deleteFileMenu.Size = new System.Drawing.Size(180, 22);
             this.deleteFileMenu.Text = "Delete";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(173, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
             // 
             // filePropertiesMenu
             // 
             this.filePropertiesMenu.Image = global::craftersmine.Aesir.Res.Toolbar.properties;
             this.filePropertiesMenu.Name = "filePropertiesMenu";
-            this.filePropertiesMenu.Size = new System.Drawing.Size(176, 22);
+            this.filePropertiesMenu.Size = new System.Drawing.Size(180, 22);
             this.filePropertiesMenu.Text = "Properties";
             // 
             // validateMenu
             // 
             this.validateMenu.Image = global::craftersmine.Aesir.Res.Toolbar.validate;
             this.validateMenu.Name = "validateMenu";
-            this.validateMenu.Size = new System.Drawing.Size(176, 22);
+            this.validateMenu.Size = new System.Drawing.Size(180, 22);
             this.validateMenu.Text = "Validate";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(173, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(177, 6);
             // 
             // exitMenu
             // 
             this.exitMenu.Image = global::craftersmine.Aesir.Res.Toolbar.exit;
             this.exitMenu.Name = "exitMenu";
-            this.exitMenu.Size = new System.Drawing.Size(176, 22);
+            this.exitMenu.Size = new System.Drawing.Size(180, 22);
             this.exitMenu.Text = "Exit";
             // 
             // editMenu
@@ -473,6 +475,7 @@
             this.newArchiveTool.Name = "newArchiveTool";
             this.newArchiveTool.Size = new System.Drawing.Size(23, 22);
             this.newArchiveTool.Text = "New Archive...";
+            this.newArchiveTool.Click += new System.EventHandler(this.CreateNewArchiveClick);
             // 
             // openArchiveTool
             // 
@@ -501,6 +504,7 @@
             this.extractArchiveTool.Name = "extractArchiveTool";
             this.extractArchiveTool.Size = new System.Drawing.Size(23, 22);
             this.extractArchiveTool.Text = "Extract Archive to...";
+            this.extractArchiveTool.Click += new System.EventHandler(this.ExtractArchiveClick);
             // 
             // toolStripSeparator1
             // 
@@ -660,7 +664,7 @@
             this.smallViewIcons.ImageSize = new System.Drawing.Size(16, 16);
             this.smallViewIcons.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // MainForm
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -670,7 +674,7 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
-            this.Name = "MainForm";
+            this.Name = "MainWindow";
             this.Text = "{archiveName} - Aesir";
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
