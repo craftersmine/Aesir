@@ -14,4 +14,6 @@ You might consider contributing to this project to make it better.
 If you want a new feature for this app [create new feature request issue](https://github.com/craftersmine/Aesir/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=)
 
 ## Installation
-* TBD *
+* Download archive from [downloads](https://github.com/craftersmine/Aesir/releases) page
+* Extract archive into desired folder
+* Run `craftersmine.Aesir.exe` binary
