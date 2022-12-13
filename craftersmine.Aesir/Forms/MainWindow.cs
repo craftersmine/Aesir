@@ -206,6 +206,25 @@ namespace craftersmine.Aesir
         {
             if (path.StartsWith(Path.GetFileName(StaticData.OpenedArchive.AsarArchive.FilePath)))
                 path = path.Substring(Path.GetFileName(StaticData.OpenedArchive.AsarArchive.FilePath).Length);
+            
+            if (string.IsNullOrWhiteSpace(path))
+                addressBar.Text = "/";
+            else
+                addressBar.Text = path.Replace("\\", "/");
+            List<string> parentPaths = new List<string>();
+            string? lastPath = path;
+            do
+            {
+                if (string.IsNullOrWhiteSpace(lastPath) || lastPath == "/")
+                    break;
+                lastPath = Path.GetDirectoryName(lastPath);
+                lastPath = lastPath.Replace("\\", "/");
+                parentPaths.Add(lastPath);
+            } while (lastPath != "/");
+
+            addressBar.Items.Clear();
+            addressBar.Items.AddRange(parentPaths.ToArray());
+
             ShowFiles(path);
         }
 
@@ -221,7 +240,7 @@ namespace craftersmine.Aesir
                 MessageBox.Show("ASAR archive is not opened!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             AsarArchiveFile? file;
-            file = string.IsNullOrWhiteSpace(path) ? StaticData.OpenedArchive?.AsarArchive.Files : StaticData.OpenedArchive?.AsarArchive.FindFile(path);
+            file = string.IsNullOrWhiteSpace(path) || path == "/" ? StaticData.OpenedArchive?.AsarArchive.Files : StaticData.OpenedArchive?.AsarArchive.FindFile(path);
 
             List<ListViewItem> fileItems = new List<ListViewItem>();
 
@@ -414,6 +433,34 @@ namespace craftersmine.Aesir
                     OpenDir(path);
                 }
             }
+        }
+
+        private void archiveFileList_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            if (e.Item is null)
+                return;
+
+            DataObject dataObject = new DataObject(DataFormats.FileDrop, (AsarArchiveFile) ((ListViewItem) e.Item).Tag);
+
+            archiveFileList.DoDragDrop(dataObject, DragDropEffects.Copy);
+        }
+
+        private void archiveFileList_DragDrop(object sender, DragEventArgs e)
+        {
+        }
+
+        private void archiveFileList_DragOver(object sender, DragEventArgs e)
+        {
+        }
+
+        private void archiveFileList_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void addressBar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            OpenDir(addressBar.SelectedItem.ToString());
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace craftersmine.Aesir
+﻿namespace craftersmine.Aesir
 {
     partial class MainWindow
     {
@@ -86,7 +86,7 @@ namespace craftersmine.Aesir
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.propertiesTool = new System.Windows.Forms.ToolStripButton();
             this.validateTool = new System.Windows.Forms.ToolStripButton();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.archiveTree = new System.Windows.Forms.TreeView();
             this.treeIcons = new System.Windows.Forms.ImageList(this.components);
             this.archiveFileList = new System.Windows.Forms.ListView();
@@ -97,13 +97,19 @@ namespace craftersmine.Aesir
             this.integrityColumn = new System.Windows.Forms.ColumnHeader();
             this.largeViewIcons = new System.Windows.Forms.ImageList(this.components);
             this.smallViewIcons = new System.Windows.Forms.ImageList(this.components);
+            this.addressBar = new System.Windows.Forms.ComboBox();
+            this.splitContainerAddress = new System.Windows.Forms.SplitContainer();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
+            this.splitContainerMain.Panel1.SuspendLayout();
+            this.splitContainerMain.Panel2.SuspendLayout();
+            this.splitContainerMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAddress)).BeginInit();
+            this.splitContainerAddress.Panel1.SuspendLayout();
+            this.splitContainerAddress.Panel2.SuspendLayout();
+            this.splitContainerAddress.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -165,33 +171,33 @@ namespace craftersmine.Aesir
             // openFileMenu
             // 
             this.openFileMenu.Name = "openFileMenu";
-            this.openFileMenu.Size = new System.Drawing.Size(180, 22);
+            this.openFileMenu.Size = new System.Drawing.Size(176, 22);
             this.openFileMenu.Text = "Open";
             // 
             // editFileMenu
             // 
             this.editFileMenu.Image = global::craftersmine.Aesir.Res.Toolbar.edit;
             this.editFileMenu.Name = "editFileMenu";
-            this.editFileMenu.Size = new System.Drawing.Size(180, 22);
+            this.editFileMenu.Size = new System.Drawing.Size(176, 22);
             this.editFileMenu.Text = "Edit";
             // 
             // viewFileMenu
             // 
             this.viewFileMenu.Image = global::craftersmine.Aesir.Res.Toolbar.view;
             this.viewFileMenu.Name = "viewFileMenu";
-            this.viewFileMenu.Size = new System.Drawing.Size(180, 22);
+            this.viewFileMenu.Size = new System.Drawing.Size(176, 22);
             this.viewFileMenu.Text = "View";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(173, 6);
             // 
             // newArchiveMenu
             // 
             this.newArchiveMenu.Image = global::craftersmine.Aesir.Res.Toolbar.archive;
             this.newArchiveMenu.Name = "newArchiveMenu";
-            this.newArchiveMenu.Size = new System.Drawing.Size(180, 22);
+            this.newArchiveMenu.Size = new System.Drawing.Size(176, 22);
             this.newArchiveMenu.Text = "New Archive...";
             this.newArchiveMenu.Click += new System.EventHandler(this.CreateNewArchiveClick);
             // 
@@ -199,7 +205,7 @@ namespace craftersmine.Aesir
             // 
             this.openArchiveMenu.Image = global::craftersmine.Aesir.Res.Toolbar.open;
             this.openArchiveMenu.Name = "openArchiveMenu";
-            this.openArchiveMenu.Size = new System.Drawing.Size(180, 22);
+            this.openArchiveMenu.Size = new System.Drawing.Size(176, 22);
             this.openArchiveMenu.Text = "Open Archive...";
             this.openArchiveMenu.Click += new System.EventHandler(this.OpenArchiveClick);
             // 
@@ -207,60 +213,60 @@ namespace craftersmine.Aesir
             // 
             this.saveArchiveMenu.Image = global::craftersmine.Aesir.Res.Toolbar.save;
             this.saveArchiveMenu.Name = "saveArchiveMenu";
-            this.saveArchiveMenu.Size = new System.Drawing.Size(180, 22);
+            this.saveArchiveMenu.Size = new System.Drawing.Size(176, 22);
             this.saveArchiveMenu.Text = "Save Archive...";
             // 
             // extractArchiveToMenu
             // 
             this.extractArchiveToMenu.Image = global::craftersmine.Aesir.Res.Toolbar.extract_archive;
             this.extractArchiveToMenu.Name = "extractArchiveToMenu";
-            this.extractArchiveToMenu.Size = new System.Drawing.Size(180, 22);
+            this.extractArchiveToMenu.Size = new System.Drawing.Size(176, 22);
             this.extractArchiveToMenu.Text = "Extract Archive to...";
             this.extractArchiveToMenu.Click += new System.EventHandler(this.ExtractArchiveClick);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(173, 6);
             // 
             // copyFileToMenu
             // 
             this.copyFileToMenu.Image = global::craftersmine.Aesir.Res.Toolbar.copy_file_to;
             this.copyFileToMenu.Name = "copyFileToMenu";
-            this.copyFileToMenu.Size = new System.Drawing.Size(180, 22);
+            this.copyFileToMenu.Size = new System.Drawing.Size(176, 22);
             this.copyFileToMenu.Text = "Copy To...";
             // 
             // moveFileToMenu
             // 
             this.moveFileToMenu.Image = global::craftersmine.Aesir.Res.Toolbar.move_file_to;
             this.moveFileToMenu.Name = "moveFileToMenu";
-            this.moveFileToMenu.Size = new System.Drawing.Size(180, 22);
+            this.moveFileToMenu.Size = new System.Drawing.Size(176, 22);
             this.moveFileToMenu.Text = "Move To...";
             // 
             // renameFileMenu
             // 
             this.renameFileMenu.Image = global::craftersmine.Aesir.Res.Toolbar.rename_file;
             this.renameFileMenu.Name = "renameFileMenu";
-            this.renameFileMenu.Size = new System.Drawing.Size(180, 22);
+            this.renameFileMenu.Size = new System.Drawing.Size(176, 22);
             this.renameFileMenu.Text = "Rename";
             // 
             // deleteFileMenu
             // 
             this.deleteFileMenu.Image = global::craftersmine.Aesir.Res.Toolbar.remove_file;
             this.deleteFileMenu.Name = "deleteFileMenu";
-            this.deleteFileMenu.Size = new System.Drawing.Size(180, 22);
+            this.deleteFileMenu.Size = new System.Drawing.Size(176, 22);
             this.deleteFileMenu.Text = "Delete";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(173, 6);
             // 
             // filePropertiesMenu
             // 
             this.filePropertiesMenu.Image = global::craftersmine.Aesir.Res.Toolbar.properties;
             this.filePropertiesMenu.Name = "filePropertiesMenu";
-            this.filePropertiesMenu.Size = new System.Drawing.Size(180, 22);
+            this.filePropertiesMenu.Size = new System.Drawing.Size(176, 22);
             this.filePropertiesMenu.Text = "Properties";
             this.filePropertiesMenu.Click += new System.EventHandler(this.PropertiesClick);
             // 
@@ -268,19 +274,19 @@ namespace craftersmine.Aesir
             // 
             this.validateMenu.Image = global::craftersmine.Aesir.Res.Toolbar.validate;
             this.validateMenu.Name = "validateMenu";
-            this.validateMenu.Size = new System.Drawing.Size(180, 22);
+            this.validateMenu.Size = new System.Drawing.Size(176, 22);
             this.validateMenu.Text = "Validate";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(173, 6);
             // 
             // exitMenu
             // 
             this.exitMenu.Image = global::craftersmine.Aesir.Res.Toolbar.exit;
             this.exitMenu.Name = "exitMenu";
-            this.exitMenu.Size = new System.Drawing.Size(180, 22);
+            this.exitMenu.Size = new System.Drawing.Size(176, 22);
             this.exitMenu.Text = "Exit";
             // 
             // editMenu
@@ -572,22 +578,22 @@ namespace craftersmine.Aesir
             this.validateTool.Size = new System.Drawing.Size(23, 22);
             this.validateTool.Text = "Validate";
             // 
-            // splitContainer1
+            // splitContainerMain
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 49);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerMain.Name = "splitContainerMain";
             // 
-            // splitContainer1.Panel1
+            // splitContainerMain.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.archiveTree);
+            this.splitContainerMain.Panel1.Controls.Add(this.archiveTree);
             // 
-            // splitContainer1.Panel2
+            // splitContainerMain.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.archiveFileList);
-            this.splitContainer1.Size = new System.Drawing.Size(1090, 595);
-            this.splitContainer1.SplitterDistance = 277;
-            this.splitContainer1.TabIndex = 3;
+            this.splitContainerMain.Panel2.Controls.Add(this.archiveFileList);
+            this.splitContainerMain.Size = new System.Drawing.Size(1090, 569);
+            this.splitContainerMain.SplitterDistance = 277;
+            this.splitContainerMain.TabIndex = 3;
             // 
             // archiveTree
             // 
@@ -598,7 +604,7 @@ namespace craftersmine.Aesir
             this.archiveTree.Location = new System.Drawing.Point(0, 0);
             this.archiveTree.Name = "archiveTree";
             this.archiveTree.SelectedImageIndex = 0;
-            this.archiveTree.Size = new System.Drawing.Size(277, 595);
+            this.archiveTree.Size = new System.Drawing.Size(277, 569);
             this.archiveTree.TabIndex = 0;
             this.archiveTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.archiveTree_AfterSelect);
             // 
@@ -610,6 +616,7 @@ namespace craftersmine.Aesir
             // 
             // archiveFileList
             // 
+            this.archiveFileList.AllowDrop = true;
             this.archiveFileList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumn,
             this.typeColumn,
@@ -617,15 +624,20 @@ namespace craftersmine.Aesir
             this.sizeColumn,
             this.integrityColumn});
             this.archiveFileList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.archiveFileList.LabelEdit = true;
             this.archiveFileList.LargeImageList = this.largeViewIcons;
             this.archiveFileList.Location = new System.Drawing.Point(0, 0);
             this.archiveFileList.Name = "archiveFileList";
             this.archiveFileList.ShowItemToolTips = true;
-            this.archiveFileList.Size = new System.Drawing.Size(809, 595);
+            this.archiveFileList.Size = new System.Drawing.Size(809, 569);
             this.archiveFileList.SmallImageList = this.smallViewIcons;
             this.archiveFileList.TabIndex = 0;
             this.archiveFileList.UseCompatibleStateImageBehavior = false;
             this.archiveFileList.View = System.Windows.Forms.View.Details;
+            this.archiveFileList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.archiveFileList_ItemDrag);
+            this.archiveFileList.DragDrop += new System.Windows.Forms.DragEventHandler(this.archiveFileList_DragDrop);
+            this.archiveFileList.DragEnter += new System.Windows.Forms.DragEventHandler(this.archiveFileList_DragEnter);
+            this.archiveFileList.DragOver += new System.Windows.Forms.DragEventHandler(this.archiveFileList_DragOver);
             this.archiveFileList.DoubleClick += new System.EventHandler(this.archiveFileList_DoubleClick);
             // 
             // nameColumn
@@ -666,12 +678,43 @@ namespace craftersmine.Aesir
             this.smallViewIcons.ImageSize = new System.Drawing.Size(16, 16);
             this.smallViewIcons.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // addressBar
+            // 
+            this.addressBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.addressBar.FormattingEnabled = true;
+            this.addressBar.Location = new System.Drawing.Point(0, 0);
+            this.addressBar.Name = "addressBar";
+            this.addressBar.Size = new System.Drawing.Size(1090, 23);
+            this.addressBar.TabIndex = 4;
+            this.addressBar.SelectedIndexChanged += new System.EventHandler(this.addressBar_SelectedIndexChanged);
+            // 
+            // splitContainerAddress
+            // 
+            this.splitContainerAddress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerAddress.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainerAddress.IsSplitterFixed = true;
+            this.splitContainerAddress.Location = new System.Drawing.Point(0, 49);
+            this.splitContainerAddress.Name = "splitContainerAddress";
+            this.splitContainerAddress.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerAddress.Panel1
+            // 
+            this.splitContainerAddress.Panel1.Controls.Add(this.addressBar);
+            // 
+            // splitContainerAddress.Panel2
+            // 
+            this.splitContainerAddress.Panel2.Controls.Add(this.splitContainerMain);
+            this.splitContainerAddress.Size = new System.Drawing.Size(1090, 595);
+            this.splitContainerAddress.SplitterDistance = 25;
+            this.splitContainerAddress.SplitterWidth = 1;
+            this.splitContainerAddress.TabIndex = 5;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1090, 666);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitContainerAddress);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
@@ -684,10 +727,14 @@ namespace craftersmine.Aesir
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.splitContainerMain.Panel1.ResumeLayout(false);
+            this.splitContainerMain.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
+            this.splitContainerMain.ResumeLayout(false);
+            this.splitContainerAddress.Panel1.ResumeLayout(false);
+            this.splitContainerAddress.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAddress)).EndInit();
+            this.splitContainerAddress.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -698,7 +745,7 @@ namespace craftersmine.Aesir
         private StatusStrip statusStrip;
         private MenuStrip menuStrip;
         private ToolStrip toolStrip;
-        private SplitContainer splitContainer1;
+        private SplitContainer splitContainerMain;
         private TreeView archiveTree;
         private ListView archiveFileList;
         private ToolStripStatusLabel statusLabel;
@@ -762,5 +809,7 @@ namespace craftersmine.Aesir
         private ColumnHeader integrityColumn;
         private ImageList largeViewIcons;
         private ImageList smallViewIcons;
+        private ComboBox addressBar;
+        private SplitContainer splitContainerAddress;
     }
 }
