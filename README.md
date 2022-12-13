@@ -8,8 +8,6 @@ Tool for opening, unpacking and packing of Electron ASAR archives
 ![GitHub Repo stars](https://img.shields.io/github/stars/craftersmine/Aesir)
 ![Maintenance](https://img.shields.io/maintenance/yes/2022)
 
-![Repository Preview](https://raw.githubusercontent.com/craftersmine/Aesir/master/.github/RepositoryPreview.png)
-
 This tool is currently under development and most features is currently unavailable.
 You might consider contributing to this project to make it better.
 
