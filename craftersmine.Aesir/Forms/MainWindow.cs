@@ -350,6 +350,22 @@ namespace craftersmine.Aesir
             }
         }
 
+        private void PropertiesClick(object sender, EventArgs e)
+        {
+            AsarArchiveFile file = null;
+            if (archiveTree.SelectedNode is not null)
+                file = archiveTree.SelectedNode.Tag as AsarArchiveFile;
+            if (archiveFileList.SelectedItems.Count > 0 && archiveFileList.SelectedItems[0] is not null)
+                file = archiveFileList.SelectedItems[0].Tag as AsarArchiveFile;
+            if (file is null)
+                file = StaticData.OpenedArchive.AsarArchive.Files;
+
+            using (FilePropertiesDialog dlg = new FilePropertiesDialog(file))
+            {
+                dlg.ShowDialog();
+            }
+        }
+
         private string CalculateSizeString(float size)
         {
             string strFormat = "{0:F2} {1}";

@@ -1,4 +1,4 @@
-﻿namespace craftersmine.Aesir
+namespace craftersmine.Aesir
 {
     partial class MainWindow
     {
@@ -262,6 +262,7 @@
             this.filePropertiesMenu.Name = "filePropertiesMenu";
             this.filePropertiesMenu.Size = new System.Drawing.Size(180, 22);
             this.filePropertiesMenu.Text = "Properties";
+            this.filePropertiesMenu.Click += new System.EventHandler(this.PropertiesClick);
             // 
             // validateMenu
             // 
@@ -560,6 +561,7 @@
             this.propertiesTool.Name = "propertiesTool";
             this.propertiesTool.Size = new System.Drawing.Size(23, 22);
             this.propertiesTool.Text = "Properties";
+            this.propertiesTool.Click += new System.EventHandler(this.PropertiesClick);
             // 
             // validateTool
             // 
