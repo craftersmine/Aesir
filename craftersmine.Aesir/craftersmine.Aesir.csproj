@@ -6,6 +6,15 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Title>Aesir</Title>
+    <Version>0.0.1-dev</Version>
+    <Authors>craftersmine</Authors>
+    <Description>Tool for opening, extracting and creating Electron ASAR archives</Description>
+    <Copyright>Copyright craftersmine © 2022</Copyright>
+    <RepositoryUrl>https://github.com/craftersmine/Aesir</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
