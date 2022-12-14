@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "craftersmine.Aesir.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "-vps -o archive.asar --paths craftersmine.AppLauncher\\ doc.md",
+      "workingDirectory": "C:\\Users\\rodio\\Desktop\\Dev"
+    }
+  }
+}
