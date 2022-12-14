@@ -47,7 +47,57 @@ namespace craftersmine.Aesir
                             return;
                         }
 
-                        StaticData.OpenedArchive.ExtractArchive(dlg.SelectedPath);
+                        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                        
+                        AsarArchiveUnpacker unpacker =
+                            new AsarArchiveUnpacker(StaticData.OpenedArchive.AsarArchive);
+
+                        ArchiveOperation extractionOperation = new ArchiveOperation(ArchiveOperationType.Extraction,
+                            async operation =>
+                            {
+                                unpacker.StatusChanged += (o, e) =>
+                                {
+                                    operation.Update(new OperationProgressChangedEventArgs(e.CurrentFile, e.TotalFiles,
+                                        e.CurrentFileData.GetPathInArchive(), e.OutputFilePath));
+                                };
+                                unpacker.AsarArchiveUnpacked += (o, e) =>
+                                {
+                                    operation.Complete();
+                                };
+                                try
+                                {
+                                    await unpacker.UnpackAsync(dlg.SelectedPath, cancellationTokenSource.Token);
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (ex is TaskCanceledException)
+                                    {
+                                        MessageBox.Show("Archive unpacking was cancelled by user!", "Cancelled by user",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("An error was occurred while unpacking archive! " + ex.Message,
+                                            "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                            },
+                            () =>
+                            {
+                                cancellationTokenSource.Cancel();
+                            },
+                            () =>
+                            {
+                                unpacker.Pause();
+                            },
+                            () =>
+                            {
+                                unpacker.Resume();
+                            }
+                        );
+
+                        ProgressDialog progressDialog = new ProgressDialog(extractionOperation);
+                        progressDialog.ShowDialog();
                         break;
                 }
             }
@@ -147,22 +197,6 @@ namespace craftersmine.Aesir
         {
             if (StaticData.OpenedArchive is null)
                 return;
-
-            StaticData.OpenedArchive.OnExtractionStarted += OnExtractionStartedEvent;
-            StaticData.OpenedArchive.OnExtractionCompleted += OpenedArchive_OnExtractionCompleted;
-        }
-
-        private void OpenedArchive_OnExtractionCompleted(object? sender, ExtractionStatusChangedEventArgs e)
-        {
-            this.Enabled = true;
-        }
-
-        private void OnExtractionStartedEvent(object? sender, ExtractionStatusChangedEventArgs e)
-        {
-            ExtractionProgressDialog dlg = new ExtractionProgressDialog();
-            this.Enabled = false;
-            dlg.Show();
-            dlg.Focus();
         }
 
         private void PopulateTreeNodes(TreeNode root, AsarArchiveFile asarArchiveFile)

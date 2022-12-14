@@ -1,6 +1,6 @@
 ﻿namespace craftersmine.Aesir.Forms
 {
-    partial class ExtractionProgressDialog
+    partial class ProgressDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -82,12 +82,11 @@
             this.cancelButton.Location = new System.Drawing.Point(481, 147);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(164, 23);
-            this.cancelButton.TabIndex = 5;
+            this.cancelButton.TabIndex = 0;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // ExtractionProgressDialog
+            // ProgressDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -102,10 +101,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ExtractionProgressDialog";
+            this.Name = "ProgressDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Extracting - Aesir";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExtractionProgressDialog_FormClosing);
+            this.Shown += new System.EventHandler(this.ProgressDialog_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -52,29 +52,14 @@ namespace craftersmine.Aesir
             throw new NotImplementedException("Archive saving is not implemented yet");
         }
 
-        public async void ExtractArchive(string outputDir)
-        {
-            AsarArchiveUnpacker unpacker = new AsarArchiveUnpacker(AsarArchive);
-            unpacker.StatusChanged += Unpacker_StatusChanged;
-            unpacker.AsarArchiveUnpacked += Unpacker_AsarArchiveUnpacked;
-            OnExtractionStarted?.Invoke(this, new ExtractionStatusChangedEventArgs(true, outputDir));
-            _cancellationTokenSource = new CancellationTokenSource();
-            await unpacker.UnpackAsync(outputDir, _cancellationTokenSource.Token);
-        }
-
-        public void CancelCurrentOperation()
-        {
-            _cancellationTokenSource.Cancel();
-        }
-
-        private void Unpacker_AsarArchiveUnpacked(object? sender, AsarUnpackingCompletedEventArgs e)
-        {
-            OnExtractionCompleted?.Invoke(this, new ExtractionStatusChangedEventArgs(false, e.OutputDirectoryPath));
-        }
-
-        private void Unpacker_StatusChanged(object? sender, AsarUnpackingStatusChangedEventArgs e)
-        {
-            OnExtractionProgressChanged?.Invoke(this, e);
-        }
+        //public async void ExtractArchive(string outputDir)
+        //{
+        //    AsarArchiveUnpacker unpacker = new AsarArchiveUnpacker(AsarArchive);
+        //    unpacker.StatusChanged += Unpacker_StatusChanged;
+        //    unpacker.AsarArchiveUnpacked += Unpacker_AsarArchiveUnpacked;
+        //    OnExtractionStarted?.Invoke(this, new ExtractionStatusChangedEventArgs(true, outputDir));
+        //    _cancellationTokenSource = new CancellationTokenSource();
+        //    await unpacker.UnpackAsync(outputDir, _cancellationTokenSource.Token);
+        //}
     }
 }
