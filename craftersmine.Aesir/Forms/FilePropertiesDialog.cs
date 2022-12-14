@@ -31,11 +31,14 @@ namespace craftersmine.Aesir.Forms
                 {
                     fileTypeTextbox.Text = "Directory";
                     iconBox.Image = FileIcons.Directory.ToBitmap();
+                    fileCountLabel.Visible = true;
+                    fileCountLabel.Text = "File count: " + file.GetFileCount();
                 }
                 else
                 {
                     fileTypeTextbox.Text = OSHelpers.GetFileTypeDescription(Path.GetExtension(file.Name));
                     iconBox.Image = OSHelpers.GetIconForFileExtension(Path.GetExtension(file.Name), false).ToBitmap();
+                    fileCountLabel.Visible = false;
                 }
             }
             else
@@ -45,6 +48,8 @@ namespace craftersmine.Aesir.Forms
                 Text = Path.GetFileName(StaticData.OpenedArchive.FilePath) + " - Properties";
                 iconBox.Image = FileIcons.Archive.ToBitmap();
                 fileTypeTextbox.Text = "Asar Archive";
+                fileCountLabel.Visible = true;
+                fileCountLabel.Text = "File count: " + file.GetFileCount();
                 sizeLabel.Text = "Size: " + CalculateSizeString(new FileInfo(StaticData.OpenedArchive.FilePath).Length);
             }
 

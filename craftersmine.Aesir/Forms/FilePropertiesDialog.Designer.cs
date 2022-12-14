@@ -38,6 +38,7 @@
             this.sizeLabel = new System.Windows.Forms.Label();
             this.unpacked = new System.Windows.Forms.CheckBox();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.fileCountLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,7 +120,7 @@
             // 
             this.unpacked.AutoSize = true;
             this.unpacked.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.unpacked.Location = new System.Drawing.Point(50, 183);
+            this.unpacked.Location = new System.Drawing.Point(50, 209);
             this.unpacked.Name = "unpacked";
             this.unpacked.Size = new System.Drawing.Size(85, 20);
             this.unpacked.TabIndex = 8;
@@ -139,11 +140,21 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // fileCountLabel
+            // 
+            this.fileCountLabel.AutoSize = true;
+            this.fileCountLabel.Location = new System.Drawing.Point(50, 179);
+            this.fileCountLabel.Name = "fileCountLabel";
+            this.fileCountLabel.Size = new System.Drawing.Size(122, 15);
+            this.fileCountLabel.TabIndex = 10;
+            this.fileCountLabel.Text = "File count: {fileCount}";
+            // 
             // FilePropertiesDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(429, 294);
+            this.Controls.Add(this.fileCountLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.unpacked);
             this.Controls.Add(this.sizeLabel);
@@ -178,5 +189,6 @@
         private Label sizeLabel;
         private CheckBox unpacked;
         private Button cancelButton;
+        private Label fileCountLabel;
     }
 }
