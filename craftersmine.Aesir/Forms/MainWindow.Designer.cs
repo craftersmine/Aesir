@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -668,9 +667,8 @@
             // largeViewIcons
             // 
             this.largeViewIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.largeViewIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("largeViewIcons.ImageStream")));
+            this.largeViewIcons.ImageSize = new System.Drawing.Size(32, 32);
             this.largeViewIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.largeViewIcons.Images.SetKeyName(0, "Untitled-1.png");
             // 
             // smallViewIcons
             // 
