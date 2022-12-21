@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +10,13 @@ namespace craftersmine.Aesir
     {
         public ArchiveOperationType OperationType { get; private set; }
         public event EventHandler<OperationProgressChangedEventArgs> OperationProgressChanged;
-        public event EventHandler OperationCompleted;
+        public event EventHandler<OperationCompletedEventArgs> OperationCompleted;
 
         private Action CancelAction { get; set; }
         private Action PauseAction { get; set; }
         private Action ResumeAction { get; set; }
         private Action<ArchiveOperation> OperationStarter { get; set; }
+        private object? CustomData { get; set; }
 
         public ArchiveOperation(ArchiveOperationType type, Action<ArchiveOperation> operationStarter, Action cancelAction, Action pauseAction, Action resumeAction)
         {
@@ -46,15 +47,20 @@ namespace craftersmine.Aesir
             ResumeAction?.Invoke();
         }
 
+        public void SetCustomData(object? data)
+        {
+            CustomData = data;
+        }
+
         public void Cancel()
         {
             CancelAction?.Invoke();
-            OperationCompleted?.Invoke(this, EventArgs.Empty);
+            OperationCompleted?.Invoke(this, new OperationCompletedEventArgs(true, CustomData));
         }
 
         public void Complete()
         {
-            OperationCompleted?.Invoke(this, EventArgs.Empty);
+            OperationCompleted?.Invoke(this, new OperationCompletedEventArgs(false, CustomData));
         }
     }
 
@@ -71,6 +77,18 @@ namespace craftersmine.Aesir
             TotalFiles = totalFiles;
             SourceFilePath = sourceFilePath;
             DestinationFilePath = destinationFilePath;
+        }
+    }
+
+    public class OperationCompletedEventArgs : EventArgs
+    {
+        public object? CustomData { get; private set; }
+        public bool IsCancelled { get; private set; }
+
+        public OperationCompletedEventArgs(bool isCancelled, object? customData)
+        {
+            CustomData = customData;
+            IsCancelled = isCancelled;
         }
     }
 
