@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,18 +12,18 @@ namespace craftersmine.Aesir
         public event EventHandler<OperationProgressChangedEventArgs> OperationProgressChanged;
         public event EventHandler OperationCompleted;
 
-        private Action CancelCallback { get; set; }
-        private Action PauseCallback { get; set; }
-        private Action ResumeCallback { get; set; }
+        private Action CancelAction { get; set; }
+        private Action PauseAction { get; set; }
+        private Action ResumeAction { get; set; }
         private Action<ArchiveOperation> OperationStarter { get; set; }
 
-        public ArchiveOperation(ArchiveOperationType type, Action<ArchiveOperation> operationStarter, Action cancelCallback, Action pauseCallback, Action resumeCallback)
+        public ArchiveOperation(ArchiveOperationType type, Action<ArchiveOperation> operationStarter, Action cancelAction, Action pauseAction, Action resumeAction)
         {
             OperationType = type;
             OperationStarter = operationStarter;
-            CancelCallback = cancelCallback;
-            PauseCallback = pauseCallback;
-            ResumeCallback = resumeCallback;
+            CancelAction = cancelAction;
+            PauseAction = pauseAction;
+            ResumeAction = resumeAction;
         }
 
         public void Start()
@@ -38,17 +38,17 @@ namespace craftersmine.Aesir
 
         public void Pause()
         {
-            PauseCallback?.Invoke();
+            PauseAction?.Invoke();
         }
 
         public void Resume()
         {
-            ResumeCallback?.Invoke();
+            ResumeAction?.Invoke();
         }
 
         public void Cancel()
         {
-            CancelCallback?.Invoke();
+            CancelAction?.Invoke();
             OperationCompleted?.Invoke(this, EventArgs.Empty);
         }
 
