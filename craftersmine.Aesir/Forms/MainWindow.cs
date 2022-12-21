@@ -98,9 +98,117 @@ namespace craftersmine.Aesir
 
                         ProgressDialog progressDialog = new ProgressDialog(extractionOperation);
                         progressDialog.ShowDialog();
+                        progressDialog.Dispose();
                         break;
                 }
             }
+        }
+        
+        class FileValidationResult
+        {
+            public AsarArchiveFile File { get; private set; }
+            public bool Valid { get; private set; }
+
+            public FileValidationResult(AsarArchiveFile file, bool valid)
+            {
+                File = file;
+                Valid = valid;
+            }
+        }
+
+        private void ValidateFileClick(object sender, EventArgs e)
+        {
+            if (archiveFileList.SelectedItems.Count >= 1)
+            {
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+                List<AsarArchiveFile> files = new List<AsarArchiveFile>();
+                foreach (var file in archiveFileList.SelectedItems.Cast<ListViewItem>())
+                {
+                    if (file is null)
+                        continue;
+
+                    if (file.Text == "..")
+                        continue;
+
+                    AsarArchiveFile f = file.Tag as AsarArchiveFile;
+
+                    if (!f.IsRoot && f.Files is null)
+                        files.Add(f);
+                }
+
+                bool isPaused = false;
+
+                ArchiveOperation validationOperation = new ArchiveOperation(ArchiveOperationType.Validation,
+                    async (operation) =>
+                    {
+                        List<FileValidationResult> results = new List<FileValidationResult>();
+
+                        for (int i = 0; i < archiveFileList.SelectedItems.Count; i++)
+                        {
+                            while (isPaused)
+                                await Task.Delay(100, cancellationTokenSource.Token);
+
+                            if (cancellationTokenSource.Token.IsCancellationRequested)
+                                break;
+
+                            operation.Update(new OperationProgressChangedEventArgs(i, files.Count, files[i].GetPathInArchive(), "..."));
+
+                            Stream fileDataStream = StaticData.OpenedArchive.AsarArchive.OpenFileAsStream(files[i]);
+                            AsarArchiveFileIntegrity fileIntegrityData = files[i].Integrity;
+                            bool valid =
+                                await AsarArchiveFileIntegrity.ValidateStreamAsync(fileDataStream, fileIntegrityData);
+
+                            results.Add(new FileValidationResult(files[i], valid));
+                        }
+
+                        operation.SetCustomData(results.ToArray());
+                        operation.Complete();
+                    },
+                    () =>
+                    {
+                        cancellationTokenSource.Cancel();
+                    },
+                    () =>
+                    {
+                        isPaused = true;
+                    },
+                    () =>
+                    {
+                        isPaused = false;
+                    });
+
+                validationOperation.OperationCompleted += ValidationOperation_OperationCompleted;
+
+                ProgressDialog dlg = new ProgressDialog(validationOperation);
+                dlg.ShowDialog();
+                dlg.Dispose();
+            }
+        }
+
+        private void ValidationOperation_OperationCompleted(object? sender, OperationCompletedEventArgs e)
+        {
+            FileValidationResult[] results = e.CustomData as FileValidationResult[];
+            string invalidFilesStringFormat = "{0} integrity not valid\r\n";
+            string invalidFiles = string.Empty;
+
+            bool hasInvalidFiles = false;
+
+            foreach (var result in results)
+            {
+                if (!result.Valid)
+                {
+                    hasInvalidFiles = true;
+                    invalidFiles += string.Format(invalidFilesStringFormat, result.File);
+                }
+            }
+
+            if (hasInvalidFiles)
+                MessageBox.Show("Selection has files that corrupted or invalid!\r\n\r\n" + invalidFiles,
+                    "Files integrity validation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                MessageBox.Show("All files integrity is valid!", "File integrity validation", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
         }
 
         private void CreateNewArchiveClick(object sender, EventArgs e)
